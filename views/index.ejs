@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./layouts/head %>
+
+    <body>
+        <% include ./layouts/navigation %>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <% if (edit) { %>
+                                    <h1>My Blogs</h1>
+                                <% }else{%>
+                                    <h1>Clean Blogs</h1>
+                                <% } %> 
+                                <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content-->
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <% posts.forEach(post=> { %>
+                            <!-- Post preview-->
+                            <div class="post-preview">
+
+                                <a href="/post/<%= post._id %>">
+                                    <h2 class="post-title">
+                                        <%= post.title %>
+                                    </h2>
+                                    <h3 class="post-subtitle">
+                                        <%= post.subtitle %>
+                                    </h3>
+                                </a>
+                                <p class="post-meta">
+                                    Posted by
+                                    <a href="/info/<%= post.username %>">
+                                        <%= post.username %>
+                                    </a>
+                                    on <%= post.createdAt.toDateString() %>
+                                </p>
+                                <% if (edit) { %>
+                                    <div class="d-flex justify-content-evenly">
+                                        <a href="/editPost/<%=post._id%>" class="btn-warning btn">Sửa</a>
+                                        <a href="/deletePost/<%=post._id%>" class="btn-danger btn">Xóa</a>
+                                    </div>
+                                <% } %>
+
+                            </div>
+                            <!-- Divider-->
+                            <hr class="my-4" />
+                            <% }) %>
+                    <!-- Pager-->
+                    <% if (tranghientai == trangcuoicung) { %>
+                        <div class="d-flex justify-content-start mb-4">
+                    <% }else if(tranghientai==1){ %>
+                        <div class="d-flex justify-content-end mb-4">
+                    <% } else if(tranghientai>1){ %> 
+                        <div class="d-flex justify-content-between mb-4">
+                    <% } %> 
+                        <% if (tranghientai>1) { 
+                            var page = parseInt(tranghientai) - 1;
+                        %>
+                            <% if(edit){%>
+                                <a href="/myposts/?page=<%=page%>" class="btn btn-primary text-uppercase">&larr;Prevous Post</a>
+                            <% }else{%>
+                                <a href="/?page=<%=page%>" class="btn btn-primary text-uppercase">&larr;Prevous Post</a>
+                            <% } %>
+                        <% } if (tranghientai < trangcuoicung) {
+                            var page = parseInt(tranghientai)+1
+                        %>
+                            <% if(edit){%>
+                                <a class="btn btn-primary text-uppercase" href="/myposts/?page=<%=page%>">Next Posts →</a></div>                                <% }else{%>
+                                <a class="btn btn-primary text-uppercase" href="/?page=<%=page%>">Next Posts →</a></div>                            
+                            <% } %>
+                        
+                        <% }%>
+                    </div>
+                </div>
+            </div>
+            <% include ./layouts/footer %> 
+            <!-- Bootstrap core JS-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Core theme JS-->
+            <script src="/js/scripts.js"></script>
+    </body>
+
+</html>

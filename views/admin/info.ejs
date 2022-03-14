@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <% include ../layouts/head %>
+<body>
+    <% include ../layouts/navigation %>
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Info</h1>
+                        <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content-->
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="row">
+                        <div class="col-3">
+                            <% if (dl.img != "") { %>
+                                <% if (!admin) { %>
+                                    <img src="../assets/img/avatar/<%= dl.img %>" style="width: 100%;" alt="">  
+                                <% }else{ %>
+                                    <img src="./assets/img/avatar/<%= dl.img %>" style="width: 100%;" alt="">  
+                                <% } %> 
+                            <% } else { %>
+                                <img src="https://via.placeholder.com/200" style="width: 100%;" alt="">
+                             <% } %> 
+                        </div>
+                        <div class="col-9">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th>username:</th>
+                                    <td><%= dl.username %></td>
+                                </tr>
+                                <tr>
+                                    <th>email:</th>
+                                    <td><%= dl.email %></td>
+                                </tr>
+                                <tr>
+                                    <th>fullname:</th>
+                                    <td><%= dl.fullName %></td>
+                                </tr>
+                                <tr>
+                                    <th>age:</th>
+                                    <td><%= dl.age %></td>
+                                </tr>
+                                <tr>
+                                    <th>address:</th>
+                                    <td><%= dl.address %></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <% if (admin) { %>
+                            <div class="col-12 d-flex justify-content-evenly">
+                                <a href="/editPassword/<%= dl._id %>" class="btn btn-primary">Change password</a>
+                                <a href="/editInfo/<%= dl._id %>" class="btn btn-primary">Change Info</a>
+                            </div>
+                        <% }else{ %>
+                            <% if (follow) { %>
+                                <a href="/follow/<%= dl._id %>" class="btn btn-warning">Theo dõi</a>
+                            <% } %> 
+                        <% } %> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <% include ../layouts/footer %> 
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./layouts/head %>
+
+    <body>
+        <% include ./layouts/navigation %>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>Clean Blog</h1>
+                                <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content-->
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <% posts.forEach(post=> { %>
+                            <!-- Post preview-->
+                            <div class="post-preview">
+
+                                <a href="/post/<%= post._id %>">
+                                    <h2 class="post-title">
+                                        <%= post.title %>
+                                    </h2>
+                                    <h3 class="post-subtitle">
+                                        <%= post.subtitle %>
+                                    </h3>
+                                </a>
+                                <p class="post-meta">
+                                    Posted by
+                                    <a href="#!">
+                                        <%= post.username %>
+                                    </a>
+                                    on <%= post.createdAt.toDateString() %>
+                                </p>
+
+                            </div>
+                            <!-- Divider-->
+                            <hr class="my-4" />
+                            <% }) %>
+                                <!-- Pager-->
+                                <div class="row">
+                                    <!-- hien thi phan trang neu co trang -->
+                                    <% if (pages> 0) { %>
+                                        <nav class="mx-auto">
+                                            <ul class="pagination" style="margin-top: 2rem;">
+                                            <!-- first item -->
+                                                <% if (current == 1) { %>
+                                                    <li class="page-item disabled">
+                                                        <a class="page-link">FIRST</a>
+                                                    </li>
+                                                <% }else{ %>
+                                                    <li class="page-item">
+                                                        <a href="/pagination/1" class="page-link">FIRST</a>
+                                                    </li>
+                                                <% } %> 
+                                                <!-- item -->
+                                                <% var i = (Number(current)>3?Number(current)-2:1) %>
+                                                <% if (i!==1) { %>
+                                                    <li class="page-item disabled">
+                                                        <a href="#" class="page-link">...</a>
+                                                    </li>
+                                                <% } %> 
+                                                <% for( ; i <=(Number(current)+2)&& i<=pages ; i++ ) { %>
+                                                    <% if (i == current) { %>
+                                                        <li class="page-item active">
+                                                            <a href="/pagination/<%= i %>" class="page-link"><%= i %></a>
+                                                        </li>
+                                                    <% }else{ %>
+                                                        <li class="page-item">
+                                                            <a href="/pagination/<%= i %>" class="page-link"><%= i %></a>
+                                                        </li>
+                                                    <% } %> 
+                                                    <% if (i == Number(current)+2 && i<pages) { %>
+                                                        <li class="page-item disabled">
+                                                            <a class="page-link">...</a>
+                                                        </li>
+                                                    <% } %>
+                                                <% } %>
+                                                <!-- Last item -->
+                                                <% if (current == pages) { %>
+                                                    <li class="page-item disabled">
+                                                        <a class="page-link">LAST</a>
+                                                    </li>
+                                                <% }else { %>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="/pagination/<%= pages %>">LAST</a>
+                                                    </li>
+                                                <% } %> 
+                                            </ul>
+                                        </nav>
+                                    <% } %>
+                                </div>
+                                <!-- end pages -->
+                    </div>
+                </div>
+                <!-- Footer-->
+                <% include ./layouts/footer %>
+                <!-- Bootstrap core JS-->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+                <!-- Core theme JS-->
+                <script src="/js/scripts.js"></script>
+    </body>
+
+</html>
